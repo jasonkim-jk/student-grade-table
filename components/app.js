@@ -56,9 +56,9 @@ class App {
         "X-Access-Token": "R1JRk9us",
       },
       data: {
-        "name": `${name}`,
-        "course": `${course}`,
-        "grade": `${grade}`
+        "name": name,
+        "course": course,
+        "grade": grade
       },
       success: this.handleCreateGradeSuccess,
       error: this.handleCreateGradeError,
