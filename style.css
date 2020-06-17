@@ -1,0 +1,6 @@
+/* @media screen and (max-width: 991px) { */
+@media screen and (max-width: 767px) {
+  h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+  }
+}
