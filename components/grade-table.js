@@ -5,7 +5,7 @@ class GradeTable {
   }
 
   updateGrades(grades) {
-    console.log(grades);
+    // console.log(grades);
     this.cleanTable();
 
     if (grades.length > 0) {

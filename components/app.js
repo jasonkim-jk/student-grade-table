@@ -23,6 +23,7 @@ class App {
 
   handleGetGradesSuccess(grades) {
     // console.log(grades);
+    this.studentGradeData = grades;
     this.gradeTable.updateGrades(grades);
     this.pageHeader.updateAverage(this.getAverage(grades));
   }
@@ -90,8 +91,8 @@ class App {
         course: course,
         grade: grade,
       },
-      success: this.handleCreateGradeSuccess,
-      error: this.handleCreateGradeError,
+      success: this.handleUpdateGradeSuccess,
+      error: this.handleUpdateGradeError,
     });
   }
 
@@ -102,6 +103,7 @@ class App {
 
   deleteGrade(id) {
     // console.log(id);
+    this.deletedStudentId = id;
     $.ajax({
       method: "DELETE",
       url: "https://sgt.lfzprototypes.com/api/grades/" + id,
@@ -118,22 +120,43 @@ class App {
   }
 
   handleDeleteGradeSuccess() {
-    this.getGrades();
+    // this.getGrades();
+    for (var i = 0; i < this.studentGradeData.length; i++) {
+      if (this.studentGradeData[i].id === this.deletedStudentId) {
+        this.studentGradeData.splice(i, 1);
+      }
+    }
+    this.updateTableAverage();
   }
 
   handleUpdateGradeError(error) {
     console.error(error);
   }
 
-  handleUpdateGradeSuccess() {
-    this.getGrades();
+  handleUpdateGradeSuccess(grade) {
+    // this.getGrades();
+    for (var i = 0; i < this.studentGradeData.length; i++) {
+      if (this.studentGradeData[i].id === grade.id) {
+        this.studentGradeData[i].name = grade.name;
+        this.studentGradeData[i].course = grade.course;
+        this.studentGradeData[i].grade = grade.grade;
+      }
+    }
+    this.updateTableAverage();
   }
 
   handleCreateGradeError(error) {
     console.error(error);
   }
 
-  handleCreateGradeSuccess() {
-    this.getGrades();
+  handleCreateGradeSuccess(grade) {
+    // this.getGrades();
+    this.studentGradeData[this.studentGradeData.length] = grade;
+    this.updateTableAverage();
+  }
+
+  updateTableAverage() {
+    this.gradeTable.updateGrades(this.studentGradeData);
+    this.pageHeader.updateAverage(this.getAverage(this.studentGradeData));
   }
 }
