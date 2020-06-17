@@ -4,3 +4,16 @@
     text-align: center;
   }
 }
+
+.fa-trash {
+  color: red;
+}
+
+.fa-edit {
+  color: lightseagreen;
+}
+
+.btn-border {
+  border: none;
+  margin-left: 0.5rem;
+}

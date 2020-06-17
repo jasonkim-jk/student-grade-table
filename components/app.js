@@ -8,9 +8,13 @@ class App {
     this.createGrade = this.createGrade.bind(this);
     this.handleCreateGradeError = this.handleCreateGradeError.bind(this);
     this.handleCreateGradeSuccess = this.handleCreateGradeSuccess.bind(this);
+    this.updateGrade = this.updateGrade.bind(this);
+    this.handleUpdateGradeError = this.handleUpdateGradeError.bind(this);
+    this.handleUpdateGradeSuccess = this.handleUpdateGradeSuccess.bind(this);
     this.deleteGrade = this.deleteGrade.bind(this);
     this.handleDeleteGradeError = this.handleDeleteGradeError.bind(this);
     this.handleDeleteGradeSuccess = this.handleDeleteGradeSuccess.bind(this);
+    this.showGradeOnForm = this.showGradeOnForm.bind(this);
   }
 
   handleGetGradesError(error) {
@@ -47,7 +51,10 @@ class App {
 
   start() {
     this.getGrades();
+    this.gradeForm.updateTitle("add");
     this.gradeForm.onSubmit(this.createGrade);
+    this.gradeForm.onUpdate(this.updateGrade);
+    this.gradeTable.onEditClick(this.showGradeOnForm);
     this.gradeTable.onDeleteClick(this.deleteGrade);
   }
 
@@ -69,6 +76,30 @@ class App {
     });
   }
 
+  updateGrade(id, name, course, grade) {
+    // console.log("Test: updateGrade method", id, name, course, grade);
+    this.gradeForm.updateTitle("add");
+    $.ajax({
+      method: "PATCH",
+      url: "https://sgt.lfzprototypes.com/api/grades/" + id,
+      headers: {
+        "X-Access-Token": "R1JRk9us",
+      },
+      data: {
+        name: name,
+        course: course,
+        grade: grade,
+      },
+      success: this.handleCreateGradeSuccess,
+      error: this.handleCreateGradeError,
+    });
+  }
+
+  showGradeOnForm(data) {
+    this.gradeForm.updateTitle("update");
+    this.gradeForm.showGradeOnForm(data);
+  }
+
   deleteGrade(id) {
     // console.log(id);
     $.ajax({
@@ -87,6 +118,14 @@ class App {
   }
 
   handleDeleteGradeSuccess() {
+    this.getGrades();
+  }
+
+  handleUpdateGradeError(error) {
+    console.error(error);
+  }
+
+  handleUpdateGradeSuccess() {
     this.getGrades();
   }
 
