@@ -52,7 +52,7 @@ class App {
   }
 
   createGrade(name, course, grade) {
-    console.log("Test: createGrade method", name, course, grade);
+    // console.log("Test: createGrade method", name, course, grade);
     $.ajax({
       method: "POST",
       url: "https://sgt.lfzprototypes.com/api/grades",
@@ -70,7 +70,16 @@ class App {
   }
 
   deleteGrade(id) {
-    console.log(id);
+    // console.log(id);
+    $.ajax({
+      method: "DELETE",
+      url: "https://sgt.lfzprototypes.com/api/grades/" + id,
+      headers: {
+        "X-Access-Token": "R1JRk9us",
+      },
+      success: this.handleDeleteGradeSuccess,
+      error: this.handleDeleteGradeError,
+    });
   }
 
   handleDeleteGradeError(error) {

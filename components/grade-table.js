@@ -5,7 +5,7 @@ class GradeTable {
   }
 
   updateGrades(grades) {
-    console.log(grades);
+    // console.log(grades);
     this.cleanTable();
 
     if (grades.length > 0) {
@@ -42,7 +42,7 @@ class GradeTable {
     tdGrade.textContent = data.grade;
     tdOperation.textContent = "";
     btn.textContent = "DELETE";
-    btn.className = "btn btn-danger";
+    btn.className = "btn btn-sm btn-danger";
 
     tdOperation.appendChild(btn);
     tr.append(tdName, tdCourse, tdGrade, tdOperation);
