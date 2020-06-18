@@ -7,9 +7,12 @@ var formName = document.getElementsByName("name");
 var formCourse = document.getElementsByName("course");
 var formGrade = document.getElementsByName("grade");
 var noGradeText = document.querySelector("#no-grade");
+var icnName = document.querySelector("#sort-name");
+var icnCourse = document.querySelector("#sort-course");
+var icnGrade = document.querySelector("#sort-grade");
 
 var pageHeader = new PageHeader(studentTableHeader);
-var gradeTable = new GradeTable(studentTable, noGradeText);
+var gradeTable = new GradeTable(studentTable, noGradeText, icnName, icnCourse, icnGrade);
 var gradeForm = new GradeForm(formContainer, formBtnSubmit, formTitle, formName, formCourse, formGrade);
 
 var app = new App(gradeTable, pageHeader, gradeForm);

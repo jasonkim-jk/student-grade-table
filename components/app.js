@@ -24,8 +24,7 @@ class App {
   handleGetGradesSuccess(grades) {
     // console.log(grades);
     this.studentGradeData = grades;
-    this.gradeTable.updateGrades(grades);
-    this.pageHeader.updateAverage(this.getAverage(grades));
+    this.updateTableAverage();
   }
 
   getAverage(grades) {
