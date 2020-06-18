@@ -29,10 +29,10 @@
             <table class="table table-striped table-hover">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Student Name</th>
-                  <th scope="col">Course</th>
-                  <th scope="col">Grade</th>
-                  <th scope="col">Operations</th>
+                  <th scope="col" class="text-nowrap">Student Name <i class="fas fa-sort-alpha-down sort-no" id="sort-name"></i></th>
+                  <th scope="col" class="text-nowrap">Course <i class="fas fa-sort-alpha-down sort-no" id="sort-course"></i></th>
+                  <th scope="col" class="text-nowrap">Grade <i class="fas fa-sort-numeric-down sort-no" id="sort-grade"></i></th>
+                  <th scope="col" class="text-nowrap">Operations</th>
                 </tr>
               </thead>
               <tbody class="tbody"></tbody>
@@ -87,8 +87,10 @@
                   />
                 </div>
               </div>
-              <button type="submit" class="btn btn-success" id="form-submit"></button>
-              <button type="reset" class="btn btn-outline-dark" id="form-reset">Cancel</button>
+              <div class="form-btn-container">
+                <button type="submit" class="btn btn-success" id="form-submit"></button>
+                <button type="reset" class="btn btn-outline-dark" id="form-reset">Cancel</button>
+              </div>
             </form>
           </div>
         </div>
