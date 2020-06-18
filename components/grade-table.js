@@ -12,6 +12,7 @@ class GradeTable {
 
   updateGrades(grades) {
     // console.log(grades);
+    this.gradeDataReference = grades;
     this.cleanTable();
 
     if (grades.length > 0) {
@@ -75,31 +76,65 @@ class GradeTable {
   }
 
   sortByName(event) {
-    this.changeSortIcon(this.sortNameElement, "alpha");
+    var sortOrder = "";
+    sortOrder = this.changeSortIcon(this.sortNameElement, "alpha");
+    console.log("====> ", sortOrder, this.gradeDataReference);
+    this.sortItems(this.gradeDataReference, "name", sortOrder, "alpha");
+    this.updateGrades(this.gradeDataReference);
   }
 
   sortByCourse(event) {
-    this.changeSortIcon(this.sortCourseElement, "alpha");
+    var sortOrder = "";
+    sortOrder = this.changeSortIcon(this.sortCourseElement, "alpha");
+    this.sortItems(this.gradeDataReference, "course", sortOrder, "alpha");
+    this.updateGrades(this.gradeDataReference);
   }
 
   sortByGrade(event) {
-    this.changeSortIcon(this.sortGradeElement, "numeric");
+    var sortOrder = "";
+    sortOrder = this.changeSortIcon(this.sortGradeElement, "numeric");
+    this.sortItems(this.gradeDataReference, "grade", sortOrder, "numeric");
+    this.updateGrades(this.gradeDataReference);
+  }
+
+  sortItems(sortData, sortElement, sortOrder, sortType) {
+    sortData.sort(function (a, b) {
+      if (sortType === "alpha") {
+        var x = a[sortElement].toLowerCase();
+        var y = b[sortElement].toLowerCase();
+        if (x < y) {
+          return sortOrder === "ascending" ? -1 : 1;
+        }
+        if (x > y) {
+          return sortOrder === "ascending" ? 1 : -1;
+        }
+        return 0;
+      } else if (sortType === "numeric") {
+        return sortOrder === "ascending" ? a[sortElement] - b[sortElement] : b[sortElement] - a[sortElement];
+      }
+    });
   }
 
   // sort-no(default) => sort-down => sort-up => sort-down => sort-up ....
   changeSortIcon(element, sortType) {
+    var sortOrder = "";
     this.initializeOtherIcons(element);
 
     if (element.classList.contains("sort-down")) {
       element.classList.remove("sort-no", "sort-down", `fa-sort-${sortType}-down`);
       element.classList.add("sort-up", `fa-sort-${sortType}-up`);
+      sortOrder = "descending";
     } else if (element.classList.contains("sort-up")) {
       element.classList.remove("sort-no", "sort-up", `fa-sort-${sortType}-up`);
       element.classList.add("sort-down", `fa-sort-${sortType}-down`);
+      sortOrder = "ascending";
     } else {
       element.classList.remove("sort-no", "sort-up");
       element.classList.add("sort-down", `fa-sort-${sortType}-down`);
+      sortOrder = "ascending";
     }
+
+    return sortOrder;
   }
 
   // initialize the other's sorting icons
