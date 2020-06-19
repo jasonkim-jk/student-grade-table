@@ -16,6 +16,20 @@
   }
 }
 
+header, main {
+  margin: 1rem 0 0;
+}
+
+header > .container > .row {
+  align-items: center;
+  justify-content: space-between;
+}
+
+main > .container > .row {
+  align-items: top;
+  justify-content: space-between;
+}
+
 .fa-trash {
   color: red;
 }
