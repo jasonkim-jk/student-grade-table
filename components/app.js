@@ -30,7 +30,7 @@ class App {
     let sum = 0;
 
     for (let i = 0; i < grades.length; i++) {
-      sum += grades[i].grade;
+      sum += parseInt(grades[i].grade);
     }
 
     return Math.floor(sum / grades.length);
@@ -131,7 +131,7 @@ class App {
       if (this.studentGradeData[i].id === grade.id) {
         this.studentGradeData[i].name = grade.name;
         this.studentGradeData[i].course = grade.course;
-        this.studentGradeData[i].grade = grade.grade;
+        this.studentGradeData[i].grade = parseInt(grade.grade);
       }
     }
     this.updateTableAverage();
