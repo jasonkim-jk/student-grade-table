@@ -65,12 +65,8 @@ class GradeTable {
     btnDelete.appendChild(iconDelete);
     tdOperation.append(btnEdit, btnDelete);
     tr.append(tdName, tdCourse, tdGrade, tdOperation);
-    btnEdit.addEventListener("click", () => {
-      showGradeOnForm(data);
-    });
-    btnDelete.addEventListener("click", () => {
-      deleteGrade(data.id);
-    });
+    btnEdit.addEventListener("click", () => showGradeOnForm(data));
+    btnDelete.addEventListener("click", () => deleteGrade(data.id));
 
     return tr;
   }
