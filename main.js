@@ -1,19 +1,19 @@
-var studentTable = document.querySelector(".tbody");
-var studentTableHeader = document.querySelector("header");
-var formContainer = document.querySelector(".form-container");
-var formTitle = document.querySelector("#form-title");
-var formBtnSubmit = document.querySelector("#form-submit");
-var formName = document.getElementsByName("name");
-var formCourse = document.getElementsByName("course");
-var formGrade = document.getElementsByName("grade");
-var noGradeText = document.querySelector("#no-grade");
-var icnName = document.querySelector("#sort-name");
-var icnCourse = document.querySelector("#sort-course");
-var icnGrade = document.querySelector("#sort-grade");
+const studentTable = document.querySelector(".tbody");
+const studentTableHeader = document.querySelector("header");
+const formContainer = document.querySelector(".form-container");
+const formTitle = document.querySelector("#form-title");
+const formBtnSubmit = document.querySelector("#form-submit");
+const formName = document.getElementsByName("name");
+const formCourse = document.getElementsByName("course");
+const formGrade = document.getElementsByName("grade");
+const noGradeText = document.querySelector("#no-grade");
+const icnName = document.querySelector("#sort-name");
+const icnCourse = document.querySelector("#sort-course");
+const icnGrade = document.querySelector("#sort-grade");
 
-var pageHeader = new PageHeader(studentTableHeader);
-var gradeTable = new GradeTable(studentTable, noGradeText, icnName, icnCourse, icnGrade);
-var gradeForm = new GradeForm(formContainer, formBtnSubmit, formTitle, formName, formCourse, formGrade);
+const pageHeader = new PageHeader(studentTableHeader);
+const gradeTable = new GradeTable(studentTable, noGradeText, icnName, icnCourse, icnGrade);
+const gradeForm = new GradeForm(formContainer, formBtnSubmit, formTitle, formName, formCourse, formGrade);
 
-var app = new App(gradeTable, pageHeader, gradeForm);
+const app = new App(gradeTable, pageHeader, gradeForm);
 app.start();

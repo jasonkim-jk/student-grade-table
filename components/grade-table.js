@@ -17,8 +17,8 @@ class GradeTable {
 
     if (grades.length > 0) {
       this.noGradesElement.classList.add("d-none");
-      for (var i = 0; i < grades.length; i++) {
-        var tableRow = this.renderGradeRow(grades[i], this.showGradeOnForm, this.deleteGrade);
+      for (let i = 0; i < grades.length; i++) {
+        const tableRow = this.renderGradeRow(grades[i], this.showGradeOnForm, this.deleteGrade);
         this.tableElement.appendChild(tableRow);
       }
     } else {
@@ -41,15 +41,15 @@ class GradeTable {
   }
 
   renderGradeRow(data, showGradeOnForm, deleteGrade) {
-    var tr = document.createElement("tr");
-    var tdName = document.createElement("td");
-    var tdCourse = document.createElement("td");
-    var tdGrade = document.createElement("td");
-    var tdOperation = document.createElement("td");
-    var btnEdit = document.createElement("button");
-    var btnDelete = document.createElement("button");
-    var iconEdit = document.createElement("i");
-    var iconDelete = document.createElement("i");
+    const tr = document.createElement("tr");
+    const tdName = document.createElement("td");
+    const tdCourse = document.createElement("td");
+    const tdGrade = document.createElement("td");
+    const tdOperation = document.createElement("td");
+    const btnEdit = document.createElement("button");
+    const btnDelete = document.createElement("button");
+    const iconEdit = document.createElement("i");
+    const iconDelete = document.createElement("i");
 
     tdName.textContent = data.name;
     tdCourse.textContent = data.course;
@@ -65,10 +65,10 @@ class GradeTable {
     btnDelete.appendChild(iconDelete);
     tdOperation.append(btnEdit, btnDelete);
     tr.append(tdName, tdCourse, tdGrade, tdOperation);
-    btnEdit.addEventListener("click", function () {
+    btnEdit.addEventListener("click", () => {
       showGradeOnForm(data);
     });
-    btnDelete.addEventListener("click", function () {
+    btnDelete.addEventListener("click", () => {
       deleteGrade(data.id);
     });
 
@@ -76,32 +76,28 @@ class GradeTable {
   }
 
   sortByName(event) {
-    var sortOrder = "";
-    sortOrder = this.changeSortIcon(this.sortNameElement, "alpha");
-    console.log("====> ", sortOrder, this.gradeDataReference);
+    const sortOrder = this.changeSortIcon(this.sortNameElement, "alpha");
     this.sortItems(this.gradeDataReference, "name", sortOrder, "alpha");
     this.updateGrades(this.gradeDataReference);
   }
 
   sortByCourse(event) {
-    var sortOrder = "";
-    sortOrder = this.changeSortIcon(this.sortCourseElement, "alpha");
+    const sortOrder = this.changeSortIcon(this.sortCourseElement, "alpha");
     this.sortItems(this.gradeDataReference, "course", sortOrder, "alpha");
     this.updateGrades(this.gradeDataReference);
   }
 
   sortByGrade(event) {
-    var sortOrder = "";
-    sortOrder = this.changeSortIcon(this.sortGradeElement, "numeric");
+    const sortOrder = this.changeSortIcon(this.sortGradeElement, "numeric");
     this.sortItems(this.gradeDataReference, "grade", sortOrder, "numeric");
     this.updateGrades(this.gradeDataReference);
   }
 
   sortItems(sortData, sortElement, sortOrder, sortType) {
-    sortData.sort(function (a, b) {
+    sortData.sort((a, b) => {
       if (sortType === "alpha") {
-        var x = a[sortElement].toLowerCase();
-        var y = b[sortElement].toLowerCase();
+        const x = a[sortElement].toLowerCase();
+        const y = b[sortElement].toLowerCase();
         if (x < y) {
           return sortOrder === "ascending" ? -1 : 1;
         }
@@ -117,15 +113,15 @@ class GradeTable {
 
   // sort-no(default) => sort-down => sort-up => sort-down => sort-up ....
   changeSortIcon(element, sortType) {
-    var sortOrder = "";
+    let sortOrder = "";
     this.initializeOtherIcons(element);
 
     if (element.classList.contains("sort-down")) {
       element.classList.remove("sort-no", "sort-down", `fa-sort-${sortType}-down`);
-      element.classList.add("sort-up", `fa-sort-${sortType}-up`);
+      element.classList.add("sort-up", `fa-sort-${sortType}-down-alt`);
       sortOrder = "descending";
     } else if (element.classList.contains("sort-up")) {
-      element.classList.remove("sort-no", "sort-up", `fa-sort-${sortType}-up`);
+      element.classList.remove("sort-no", "sort-up", `fa-sort-${sortType}-down-alt`);
       element.classList.add("sort-down", `fa-sort-${sortType}-down`);
       sortOrder = "ascending";
     } else {
@@ -140,19 +136,19 @@ class GradeTable {
   // initialize the other's sorting icons
   initializeOtherIcons(element) {
     if (element === this.sortNameElement) {
-      this.sortCourseElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-up");
+      this.sortCourseElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-down-alt");
       this.sortCourseElement.classList.add("sort-no", "fa-sort-alpha-down");
-      this.sortGradeElement.classList.remove("sort-down", "sort-up", "fa-sort-numeric-up");
+      this.sortGradeElement.classList.remove("sort-down", "sort-up", "fa-sort-numeric-down-alt");
       this.sortGradeElement.classList.add("sort-no", "fa-sort-numeric-down");
     } else if (element === this.sortCourseElement) {
-      this.sortNameElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-up");
+      this.sortNameElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-down-alt");
       this.sortNameElement.classList.add("sort-no", "fa-sort-alpha-down");
-      this.sortGradeElement.classList.remove("sort-down", "sort-up", "fa-sort-numeric-up");
+      this.sortGradeElement.classList.remove("sort-down", "sort-up", "fa-sort-numeric-down-alt");
       this.sortGradeElement.classList.add("sort-no", "fa-sort-numeric-down");
     } else {
-      this.sortNameElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-up");
+      this.sortNameElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-down-alt");
       this.sortNameElement.classList.add("sort-no", "fa-sort-alpha-down");
-      this.sortCourseElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-up");
+      this.sortCourseElement.classList.remove("sort-down", "sort-up", "fa-sort-alpha-down-alt");
       this.sortCourseElement.classList.add("sort-no", "fa-sort-alpha-down");
     }
   }

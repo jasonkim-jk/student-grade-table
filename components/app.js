@@ -17,20 +17,19 @@ class App {
     this.showGradeOnForm = this.showGradeOnForm.bind(this);
   }
 
-  handleGetGradesError(error) {
-    console.error(error);
-  }
-
-  handleGetGradesSuccess(grades) {
-    // console.log(grades);
-    this.studentGradeData = grades;
-    this.updateTableAverage();
+  start() {
+    this.getGrades();
+    this.gradeForm.updateTitle("add");
+    this.gradeForm.onSubmit(this.createGrade);
+    this.gradeForm.onUpdate(this.updateGrade);
+    this.gradeTable.onEditClick(this.showGradeOnForm);
+    this.gradeTable.onDeleteClick(this.deleteGrade);
   }
 
   getAverage(grades) {
-    var sum = 0;
+    let sum = 0;
 
-    for (var i = 0; i < grades.length; i++) {
+    for (let i = 0; i < grades.length; i++) {
       sum += grades[i].grade;
     }
 
@@ -49,17 +48,7 @@ class App {
     });
   }
 
-  start() {
-    this.getGrades();
-    this.gradeForm.updateTitle("add");
-    this.gradeForm.onSubmit(this.createGrade);
-    this.gradeForm.onUpdate(this.updateGrade);
-    this.gradeTable.onEditClick(this.showGradeOnForm);
-    this.gradeTable.onDeleteClick(this.deleteGrade);
-  }
-
   createGrade(name, course, grade) {
-    // console.log("Test: createGrade method", name, course, grade);
     $.ajax({
       method: "POST",
       url: "https://sgt.lfzprototypes.com/api/grades",
@@ -77,7 +66,6 @@ class App {
   }
 
   updateGrade(id, name, course, grade) {
-    // console.log("Test: updateGrade method", id, name, course, grade);
     this.gradeForm.updateTitle("add");
     $.ajax({
       method: "PATCH",
@@ -114,13 +102,18 @@ class App {
     });
   }
 
+  updateTableAverage() {
+    this.gradeTable.updateGrades(this.studentGradeData);
+    this.pageHeader.updateAverage(this.getAverage(this.studentGradeData));
+  }
+
   handleDeleteGradeError(error) {
     console.error(error);
   }
 
   handleDeleteGradeSuccess() {
     // this.getGrades();
-    for (var i = 0; i < this.studentGradeData.length; i++) {
+    for (let i = 0; i < this.studentGradeData.length; i++) {
       if (this.studentGradeData[i].id === this.deletedStudentId) {
         this.studentGradeData.splice(i, 1);
       }
@@ -134,7 +127,7 @@ class App {
 
   handleUpdateGradeSuccess(grade) {
     // this.getGrades();
-    for (var i = 0; i < this.studentGradeData.length; i++) {
+    for (let i = 0; i < this.studentGradeData.length; i++) {
       if (this.studentGradeData[i].id === grade.id) {
         this.studentGradeData[i].name = grade.name;
         this.studentGradeData[i].course = grade.course;
@@ -154,8 +147,13 @@ class App {
     this.updateTableAverage();
   }
 
-  updateTableAverage() {
-    this.gradeTable.updateGrades(this.studentGradeData);
-    this.pageHeader.updateAverage(this.getAverage(this.studentGradeData));
+  handleGetGradesError(error) {
+    console.error(error);
+  }
+
+  handleGetGradesSuccess(grades) {
+    // console.log(grades);
+    this.studentGradeData = grades;
+    this.updateTableAverage();
   }
 }
